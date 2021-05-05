@@ -1,0 +1,47 @@
+body {
+   color: rgba(0,0,0,0.87);
+   font-family: Roboto, Arial, Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+ }
+
+/*pタグの上下感覚を調整*/
+ p{
+   margin-top: 3px;
+   margin-bottom: 3px;
+ }
+
+ .Main_title{
+   text-align:center;
+   margin-left: auto;
+   margin-right: auto;
+   width: 90%;
+   height: 5rem;
+   font-size: 0.8rem;
+ }
+
+ .Table{
+   text-align:center;
+   margin-left: auto;
+   margin-right: auto;
+   width: 90%;
+   height: 50rem;
+   font-size: 1.5rem;
+ }
+
+ .Subtitle{
+   text-align:center;
+   margin-left: auto;
+   margin-right: auto;
+   width: 80%;
+   height: 3rem;
+   font-size: 0.8rem;
+ }
+
+ .Img{
+   margin-left: auto;
+   margin-right: auto;
+   width: 30%;
+   height: 30%;
+   background: White; /*わかりやすくするための確認用*/
+ }
