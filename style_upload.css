@@ -1,0 +1,21 @@
+body {
+   color: rgba(0,0,0,0.87);
+   font-family: Roboto, , Arial, sans-serif;
+   margin: 0;
+   padding: 0;
+ }
+
+/*pタグの上下感覚を調整*/
+ p{
+   margin-top: 3px;
+   margin-bottom: 3px;
+ }
+
+ .Main_title{
+   text-align:center;
+   margin-left: auto;
+   margin-right: auto;
+   width: 90%;
+   height: 5rem;
+   font-size: 1.5rem;
+ }
