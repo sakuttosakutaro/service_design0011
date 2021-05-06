@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="style_menu.css">
     <nav>　
       <ul>　　
-        <li><a href="index.html">ホーム</a></li>　　　　
+        <li><a href="index.html">リスト表示</a></li>　　　
       </ul>
     </nav>
 
   </head>
 
 <div class="Main_title">
-    <h1> "menu"</h1>
+    <h1> 個別表示</h1>
     </div>
     <div id="data_view">
       <div class="NEXT" onclick="susumu()">NEXT</div>
@@ -69,8 +69,8 @@
 
       window.onload = function(){
 
-        
-        db.collection("users").get().then(function(querySnapshot) {
+
+        db.collection("users").orderBy("Record_number").get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
 
               var data = doc.data();
@@ -80,7 +80,6 @@
 
               const elements_number = LIST.length - 1;
               console.log(elements_number);
-
               drawelements(0);
           });
       });
@@ -120,7 +119,6 @@
         typ.innerHTML = "<p>Type：" + LIST[order].Type + "</p>"
         res = document.getElementById("Registrant");
         res.innerHTML = "<p>Registrant：" + LIST[order].Registrant + "</p>"
-
       }
 
 
