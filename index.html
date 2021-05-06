@@ -7,21 +7,9 @@
     <link rel="stylesheet" href="style_home.css">
     <nav>　
       <ul>　　
-        <li><a href="index.html">ホーム</a></li>
-        <li><a href="menu.html">メニュー</a></li>　　　
+        <li><a href="menu.html">１から順に見る</a></li>　　　
       </ul>
     </nav>
-    <h1>
-　　　　　<a href="index.html">firebase Cloud Storage uploader</a>
-    </h1>
-    <div>
-<!-- autocomplete="off"でformの候補をなくす -->
-　　　　　<form autocomplete="off">
-   　　　　　<input type="file" id="setfile">
-   　　　　　<input type="submit" value="storageへ">
-   </form>
-   <div id="imgSample" style="width: 200px; height: 200px; background-size:100% auto; background-position : 50% 50%;"></div>
-</div>
 
   </head>
 <body>
@@ -30,7 +18,7 @@
     </div>
     <div id="data_view">
 <div class="Table">
-      <template id="template">
+     <template id="template">
         <tr>
           <td class="Record_number"></td>
           <td class="Day"></td>
@@ -60,6 +48,19 @@
           <th>画像</th>
         </tr>
       </table>
+      <div class="uploadlink">
+      <h1>
+  　　　　　<a href="upload.html">新規アップロード</a>
+      </h1>
+      <!-- autocomplete="off"でformの候補をなくす -->
+      <form autocomplete="off">
+
+      <!--<input type="file" id="setfile">
+      <input type="submit" value="storageへ">-->
+      </div>
+      <div id="imgSample" style="width: 200px; height: 200px; background-size:100% auto; background-position : 50% 50%;"></div>
+</div>
+      </form>
 </div>
 
 
@@ -71,9 +72,10 @@
          https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-storage.js"></script>
+
 
     <script>
-
 
       var firebaseConfig = {
         apiKey: "AIzaSyD9Akq0fHCQ2c2RMWTy8jX9yekb6FqEG7c",
@@ -86,10 +88,38 @@
 
       firebase.initializeApp(firebaseConfig);
       firebase.analytics();
+      /*// formインスタンスを定義
+      const form = document.querySelector('form');
+      // setfileインスタンスを作成
+      const setfile = document.getElementById("setfile");
+      // CloudStorageインスタンスを作成
+      const storage = firebase.storage();
+      // imgSampleインスタンスを作成
+      const imgSample = document.getElementById("imgSample");
+
+      // グローバル変数を定義
+      var file_name;
+      var blob;
+
+      // setfileの変更で処理開始（変更があった要素がeで返される）
+      setfile.addEventListener("change", e => {
+      var file = e.target.files;
+      // fileの名前を取得
+      file_name = file[0].name;
+      // blob形式に変換
+
+      // submitで処理開始
+      form.addEventListener('submit', e => {
+      // ページ遷移をなくす
+      e.preventDefault();
+      });
+    });*/
 
 
 
       var db = firebase.firestore();
+
+
       var LIST = [];
 
       window.onload = function(){
@@ -106,7 +136,6 @@
               const elements_number = LIST.length - 1;
               console.log(LIST.length);
 
-              /*drawelements(0);*/
           });
           var template = document.getElementById('template');
           for(var i =0; i <LIST.length; i++){
@@ -138,54 +167,7 @@
             document.getElementById('container').appendChild(clone);
           }
       });
-
-
-    }
-    const form = document.querySelector('form');
-// setfileインスタンスを作成
-const setfile = document.getElementById("setfile");
-// CloudStorageインスタンスを作成
-const storage = firebase.storage();
-// imgSampleインスタンスを作成
-const imgSample = document.getElementById("imgSample");
-
-// グローバル変数を定義
-var file_name;
-var blob;
-
-// setfileの変更で処理開始（変更があった要素がeで返される）
-setfile.addEventListener("change", e => {
-var file = e.target.files;
-// fileの名前を取得
-file_name = file[0].name;
-// blob形式に変換
-blob = new Blob(file, { type: "image/jpeg" });
-console.warn(blob);
-});
-
-// submitで処理開始
-form.addEventListener('submit', e => {
-// ページ遷移をなくす
-e.preventDefault();
-
-// storageのarea_imagesへの参照を定義
-var uploadRef = storage.ref('images/').child(file_name);
-uploadRef.put(blob).then(snapshot => {
-console.log(snapshot.state);
-// アップロードしたファイルのurlを取得
-   uploadRef.getDownloadURL().then(url => {
-    // htmlに表示する
-       imgSample.style.backgroundImage = "url("+url+")";
-   }).catch(error => {
-      console.log(error);
-   });
-});
-// valueリセットする
-   file_name = '';
-   blob = '';
-});
-
-
+  }
 
 
 
