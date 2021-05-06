@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to Firebase Hosting</title>
+    <link rel="stylesheet" href="style_upload.css">
+    <nav>　
+      <ul>　　
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="menu.html">メニュー</a></li>　　　
+      </ul>
+    </nav>
+
+  </head>
+<body>
+<div class="Main_title">
+    <h1> Coming soon...maybe</h1>
+</div>
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.0/firebase-storage.js"></script>
+
+
+    <script>
+
+      var firebaseConfig = {
+        apiKey: "AIzaSyD9Akq0fHCQ2c2RMWTy8jX9yekb6FqEG7c",
+        authDomain: "miyasaka001.firebaseapp.com",
+        projectId: "miyasaka001",
+        storageBucket: "miyasaka001.appspot.com",
+        messagingSenderId: "344443623638",
+        appId: "1:344443623638:web:b7e223de10b4dd9d1f1177"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      /*// formインスタンスを定義
+      const form = document.querySelector('form');
+      // setfileインスタンスを作成
+      const setfile = document.getElementById("setfile");
+      // CloudStorageインスタンスを作成
+      const storage = firebase.storage();
+      // imgSampleインスタンスを作成
+      const imgSample = document.getElementById("imgSample");
+
+      // グローバル変数を定義
+      var file_name;
+      var blob;
+
+      // setfileの変更で処理開始（変更があった要素がeで返される）
+      setfile.addEventListener("change", e => {
+      var file = e.target.files;
+      // fileの名前を取得
+      file_name = file[0].name;
+      // blob形式に変換
+
+      // submitで処理開始
+      form.addEventListener('submit', e => {
+      // ページ遷移をなくす
+      e.preventDefault();
+      });
+    });*/
+
+
+
+      var db = firebase.firestore();
+
+
+      var LIST = [];
+
+      window.onload = function(){
+        db.collection("users").get().then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+
+              var data = doc.data();
+              LIST.push(data);
+              console.log(LIST[0]);
+
+
+
+
+              const elements_number = LIST.length - 1;
+              console.log(LIST.length);
+
+          });
+          var template = document.getElementById('template');
+          for(var i =0; i <LIST.length; i++){
+            // template要素の内容を複製
+            var clone = template.content.cloneNode(true);
+            clone.querySelector('.Record_number').textContent = LIST[i].Record_number;
+            const timestampToTime = (timestamp) => {
+            const date = new Date(timestamp*1000);
+            const yyyy = `${date.getFullYear()}`;
+            const MM = `0${date.getMonth() + 1}`.slice(-2); // getMonth()の返り値は0が基点
+            const dd = `0${date.getDate()}`.slice(-2);
+            const HH = `0${date.getHours()}`.slice(-2);
+            const mm = `0${date.getMinutes()}`.slice(-2);
+            const ss = `0${date.getSeconds()}`.slice(-2);
+            return `${yyyy}/${MM}/${dd}${HH}:${mm}:${ss}`;
+          }
+          timestamp = LIST[i].Day.seconds;
+          console.log(timestampToTime(timestamp));
+            clone.querySelector('.Day').textContent = timestampToTime(timestamp);
+            clone.querySelector('.Spot').textContent = LIST[i].Spot;
+            clone.querySelector('.Name').textContent = LIST[i].Name;
+            clone.querySelector('.Category').textContent = LIST[i].Category;
+            clone.querySelector('.Type').textContent = LIST[i].Type;
+            clone.querySelector('.Registrant').textContent = LIST[i].Registrant;
+            const image = clone.querySelector('img');
+            image.src = LIST[i].Image;
+
+            // div#containerの中に追加
+            document.getElementById('container').appendChild(clone);
+          }
+      });
+
+
+    }
+
+
+    </script>
+
+
+  </body>
+</html>
